@@ -1,0 +1,65 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Core surfaces */
+  --color-ink: #0a0b14;
+  --color-ink-2: #10121f;
+  --color-ink-3: #171a2b;
+  --color-line: #262a40;
+
+  /* Warm (family) */
+  --color-ember: #ff7a45;
+  --color-ember-soft: #ffb088;
+  --color-sun: #ffc94d;
+
+  /* Cool (tech) */
+  --color-volt: #7c5cff;
+  --color-aqua: #34d5e6;
+
+  /* Text */
+  --color-cloud: #eef1ff;
+  --color-mist: #a7adca;
+
+  --font-display: 'Fredoka', ui-rounded, 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --radius-xl2: 1.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-ink);
+    color: var(--color-cloud);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-ember);
+    color: var(--color-ink);
+  }
+}
+
+/* Subtle animated grid glow used on hero */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
