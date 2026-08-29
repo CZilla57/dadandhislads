@@ -28,61 +28,17 @@ export const statusLabels: Record<AppStatus, string> = {
   soon: 'Coming soon',
 }
 
-// Placeholder catalog — swap names, taglines, and URLs as apps ship.
 export const apps: AppItem[] = [
   {
-    slug: 'broken-bone',
-    name: 'The Broken Bone App',
-    tagline: 'From the ER to all healed up.',
+    slug: 'tradeready',
+    name: 'TradeReady',
+    tagline: 'Run your trade business from your pocket.',
     description:
-      'Track a fracture the whole way through — cast-off dates, follow-ups, range-of-motion exercises, and a healing timeline the whole family can follow. Born from a real trip to the ER.',
-    category: 'Health',
-    status: 'building',
-    emoji: '🦴',
-    accent: 'aqua',
-  },
-  {
-    slug: 'focus-lads',
-    name: 'Focus Lads',
-    tagline: 'ADHD-friendly focus that actually sticks.',
-    description:
-      'Body-doubling timers, gentle nudges, and a dopamine-friendly reward loop built for brains that wander. Designed with real ADHD routines in mind — not against them.',
-    category: 'ADHD & Focus',
-    status: 'building',
-    emoji: '🧠',
-    accent: 'volt',
-  },
-  {
-    slug: 'ledger-lad',
-    name: 'LedgerLad',
-    tagline: 'Small-business books without the headache.',
-    description:
-      'Invoicing, expenses, and a plain-English snapshot of how the business is really doing — for makers, freelancers, and side-hustlers who would rather build than bookkeep.',
+      'Job management and invoicing for independent tradespeople. Price jobs with confidence, send estimates and invoices in seconds, take card payments, and let an AI coach keep an eye on your numbers — fully offline when the signal drops. Free to download with a 2-week trial.',
     category: 'Business',
-    status: 'soon',
-    emoji: '📊',
+    status: 'live',
+    emoji: '🔧',
     accent: 'ember',
-  },
-  {
-    slug: 'chore-quest',
-    name: 'Chore Quest',
-    tagline: 'Turn the family to-do list into a game.',
-    description:
-      'Kids earn points, level up, and unlock rewards for helping out. Parents get a calmer house. Everybody wins the quest.',
-    category: 'Family',
-    status: 'soon',
-    emoji: '⚔️',
-    accent: 'sun',
-  },
-  {
-    slug: 'brain-break',
-    name: 'Brain Break',
-    tagline: 'Tiny games for a big reset.',
-    description:
-      'Quick, delightful mini-games to reset an overloaded brain — for the kids, and honestly for dad too.',
-    category: 'Fun',
-    status: 'soon',
-    emoji: '🎮',
-    accent: 'volt',
+    url: 'https://gettradereadyapp.com',
   },
 ]

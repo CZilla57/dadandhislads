@@ -7,7 +7,14 @@ type Filter = 'All' | AppCategory
 
 export function Apps() {
   const [filter, setFilter] = useState<Filter>('All')
-  const filters: Filter[] = ['All', ...categories]
+
+  // Only show category filters that actually have apps behind them,
+  // in their canonical order. One filter alone isn't worth showing.
+  const activeCategories = categories.filter((c) =>
+    apps.some((a) => a.category === c),
+  )
+  const filters: Filter[] =
+    activeCategories.length > 1 ? ['All', ...activeCategories] : []
 
   const visible = useMemo(
     () => (filter === 'All' ? apps : apps.filter((a) => a.category === filter)),
@@ -26,24 +33,26 @@ export function Apps() {
         </p>
       </div>
 
-      <div className="mt-10 flex flex-wrap gap-2">
-        {filters.map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              filter === f
-                ? 'bg-ember text-ink'
-                : 'border border-line bg-ink-2 text-mist hover:text-cloud'
-            }`}
-          >
-            {f}
-          </button>
-        ))}
-      </div>
+      {filters.length > 0 && (
+        <div className="mt-10 flex flex-wrap gap-2">
+          {filters.map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                filter === f
+                  ? 'bg-ember text-ink'
+                  : 'border border-line bg-ink-2 text-mist hover:text-cloud'
+              }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+      )}
 
       {visible.length > 0 ? (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((app) => (
             <AppCard key={app.slug} app={app} />
           ))}
