@@ -31,9 +31,18 @@ export function AppCard({ app }: { app: AppItem }) {
         className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${accentGlow[app.accent]} to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
       />
       <div className="relative flex items-start justify-between">
-        <span className="grid h-14 w-14 place-items-center rounded-2xl bg-ink-3 text-3xl">
-          {app.emoji}
-        </span>
+        {app.icon ? (
+          <img
+            src={app.icon}
+            alt={`${app.name} icon`}
+            className="h-14 w-14 rounded-2xl object-cover shadow-lg shadow-black/30"
+            loading="lazy"
+          />
+        ) : (
+          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-ink-3 text-3xl">
+            {app.emoji}
+          </span>
+        )}
         <span
           className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyle[app.status]}`}
         >

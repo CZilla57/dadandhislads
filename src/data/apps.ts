@@ -10,6 +10,8 @@ export interface AppItem {
   category: AppCategory
   status: AppStatus
   emoji: string
+  /** Optional real icon image (path under /public). Falls back to `emoji` when unset. */
+  icon?: string
   accent: 'ember' | 'volt' | 'aqua' | 'sun'
   url?: string
   /** Short platform label shown on the card, e.g. "iOS" or "Web · Mobile soon". */
@@ -70,6 +72,7 @@ export const apps: AppItem[] = [
     category: 'Fun',
     status: 'building',
     emoji: '🤕',
+    icon: '/icons/howd-you-do-that.png',
     accent: 'sun',
     platform: 'iOS · coming soon',
   },
