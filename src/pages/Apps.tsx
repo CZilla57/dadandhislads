@@ -25,10 +25,10 @@ export function Apps() {
     <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
       <div className="max-w-2xl">
         <h1 className="font-display text-4xl font-bold text-cloud sm:text-5xl">
-          The app shelf
+          Apps &amp; services
         </h1>
         <p className="mt-4 text-lg text-mist">
-          Everything we&apos;re building, from ideas still on the whiteboard to
+          Everything we build and offer, from ideas still on the whiteboard to
           apps out in the world. Different problems, one family behind them all.
         </p>
       </div>
