@@ -41,4 +41,16 @@ export const apps: AppItem[] = [
     accent: 'ember',
     url: 'https://gettradereadyapp.com',
   },
+  {
+    slug: 'focusquest',
+    name: 'FocusQuest',
+    tagline: 'Turn your to-do list into an adventure.',
+    description:
+      'Gamified tasks and habits built for ADHD brains. Complete quests, earn XP, and build streaks — so the things you keep meaning to do finally feel worth doing.',
+    category: 'ADHD & Focus',
+    status: 'live',
+    emoji: '🎯',
+    accent: 'volt',
+    url: 'https://getfocusquest.com',
+  },
 ]
