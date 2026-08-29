@@ -46,7 +46,7 @@ export const apps: AppItem[] = [
     name: 'FocusQuest',
     tagline: 'Turn your to-do list into an adventure.',
     description:
-      'Gamified tasks and habits built for ADHD brains. Complete quests, earn XP, and build streaks — so the things you keep meaning to do finally feel worth doing.',
+      'Gamified tasks and habits built for ADHD brains. Complete quests, earn XP, and build streaks — so the things you keep meaning to do finally feel worth doing. Play in your browser today, with a mobile app on the way.',
     category: 'ADHD & Focus',
     status: 'live',
     emoji: '🎯',
