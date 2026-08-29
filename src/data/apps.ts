@@ -12,6 +12,8 @@ export interface AppItem {
   emoji: string
   accent: 'ember' | 'volt' | 'aqua' | 'sun'
   url?: string
+  /** Short platform label shown on the card, e.g. "iOS" or "Web · Mobile soon". */
+  platform?: string
 }
 
 export const categories: AppCategory[] = [
@@ -40,6 +42,7 @@ export const apps: AppItem[] = [
     emoji: '🔧',
     accent: 'ember',
     url: 'https://gettradereadyapp.com',
+    platform: 'iOS',
   },
   {
     slug: 'focusquest',
@@ -52,5 +55,6 @@ export const apps: AppItem[] = [
     emoji: '🎯',
     accent: 'volt',
     url: 'https://getfocusquest.com',
+    platform: 'Web · Mobile soon',
   },
 ]

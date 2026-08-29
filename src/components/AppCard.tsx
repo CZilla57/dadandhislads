@@ -51,9 +51,16 @@ export function AppCard({ app }: { app: AppItem }) {
       </p>
 
       <div className="relative mt-5 flex items-center justify-between">
-        <span className="text-xs font-medium uppercase tracking-wide text-mist/70">
-          {app.category}
-        </span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-medium uppercase tracking-wide text-mist/70">
+            {app.category}
+          </span>
+          {app.platform && (
+            <span className="rounded-full border border-line px-2 py-0.5 text-[11px] font-medium text-mist">
+              {app.platform}
+            </span>
+          )}
+        </div>
         {app.url && (
           <a
             href={app.url}
