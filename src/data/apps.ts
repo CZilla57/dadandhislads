@@ -57,4 +57,16 @@ export const apps: AppItem[] = [
     url: 'https://getfocusquest.com',
     platform: 'Web · Mobile soon',
   },
+  {
+    slug: 'howd-you-do-that',
+    name: "How'd You Do That",
+    tagline: 'Upgrade the boring story of how you broke it.',
+    description:
+      'Nobody wants to hear you tripped on the stairs. How\'d You Do That spins the real, boring story of your broken bone into an epic tale worth retelling — the one you wish had actually happened.',
+    category: 'Fun',
+    status: 'building',
+    emoji: '🤕',
+    accent: 'sun',
+    platform: 'iOS · coming soon',
+  },
 ]
