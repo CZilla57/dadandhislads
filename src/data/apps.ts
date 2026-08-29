@@ -14,6 +14,10 @@ export interface AppItem {
   url?: string
   /** Short platform label shown on the card, e.g. "iOS" or "Web · Mobile soon". */
   platform?: string
+  /** 'app' (default) or 'service' — services show an "Available now" badge and an internal CTA. */
+  kind?: 'app' | 'service'
+  /** Internal call-to-action link (e.g. to the contact page) for service cards. */
+  cta?: { label: string; to: string }
 }
 
 export const categories: AppCategory[] = [
@@ -68,5 +72,19 @@ export const apps: AppItem[] = [
     emoji: '🤕',
     accent: 'sun',
     platform: 'iOS · coming soon',
+  },
+  {
+    slug: 'website-building',
+    name: 'Website Building',
+    tagline: 'A clean, simple site — fast and affordable.',
+    description:
+      'Need to get online without the agency price tag? I\'ll build you a decent, no-nonsense website at a low price with a quick turnaround. Great for small businesses, side hustles, and anyone who just needs a solid site done right.',
+    category: 'Business',
+    status: 'live',
+    emoji: '🌐',
+    accent: 'aqua',
+    kind: 'service',
+    platform: 'Service',
+    cta: { label: 'Get a quote', to: '/contact' },
   },
 ]

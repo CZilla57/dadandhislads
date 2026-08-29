@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { AppItem } from '../data/apps'
 import { statusLabels } from '../data/apps'
 
@@ -36,7 +37,7 @@ export function AppCard({ app }: { app: AppItem }) {
         <span
           className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyle[app.status]}`}
         >
-          {statusLabels[app.status]}
+          {app.kind === 'service' ? 'Available now' : statusLabels[app.status]}
         </span>
       </div>
 
@@ -61,15 +62,24 @@ export function AppCard({ app }: { app: AppItem }) {
             </span>
           )}
         </div>
-        {app.url && (
-          <a
-            href={app.url}
-            target="_blank"
-            rel="noreferrer"
+        {app.cta ? (
+          <Link
+            to={app.cta.to}
             className="text-sm font-semibold text-cloud underline-offset-4 hover:underline"
           >
-            Visit →
-          </a>
+            {app.cta.label} →
+          </Link>
+        ) : (
+          app.url && (
+            <a
+              href={app.url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-semibold text-cloud underline-offset-4 hover:underline"
+            >
+              Visit →
+            </a>
+          )
         )}
       </div>
     </article>
