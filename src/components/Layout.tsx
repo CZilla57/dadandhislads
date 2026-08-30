@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 import { Logo } from './Logo'
 
 const navItems = [
@@ -11,16 +11,15 @@ const navItems = [
 
 function Nav() {
   const [open, setOpen] = useState(false)
-  const location = useLocation()
 
   return (
     <header className="sticky top-0 z-50 border-b border-line/60 bg-ink/80 backdrop-blur-lg">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <Link to="/" onClick={() => setOpen(false)}>
+        <Link to="/" aria-label="Dad & His Lads — home" onClick={() => setOpen(false)}>
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -46,17 +45,25 @@ function Nav() {
         </nav>
 
         <button
-          className="grid h-10 w-10 place-items-center rounded-lg border border-line text-cloud md:hidden"
+          type="button"
+          className="grid h-11 w-11 place-items-center rounded-lg border border-line text-cloud md:hidden"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close main menu' : 'Open main menu'}
           aria-expanded={open}
+          aria-controls="mobile-nav"
         >
-          <span className="text-xl">{open ? '✕' : '☰'}</span>
+          <span aria-hidden className="text-xl">
+            {open ? '✕' : '☰'}
+          </span>
         </button>
       </div>
 
       {open && (
-        <nav className="border-t border-line/60 px-5 py-3 md:hidden">
+        <nav
+          id="mobile-nav"
+          aria-label="Primary"
+          className="border-t border-line/60 px-5 py-3 md:hidden"
+        >
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -74,8 +81,6 @@ function Nav() {
           ))}
         </nav>
       )}
-      {/* key forces remount so mobile menu closes on route change */}
-      <span hidden key={location.pathname} />
     </header>
   )
 }

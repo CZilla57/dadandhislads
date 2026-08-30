@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
 import type { AppItem } from '../data/apps'
 import { statusLabels } from '../data/apps'
+import { trackAppVisit } from '../lib/analytics'
 
 const accentRing: Record<AppItem['accent'], string> = {
   ember: 'hover:border-ember/60 hover:shadow-ember/10',
@@ -9,11 +9,11 @@ const accentRing: Record<AppItem['accent'], string> = {
   sun: 'hover:border-sun/60 hover:shadow-sun/10',
 }
 
-const accentGlow: Record<AppItem['accent'], string> = {
-  ember: 'from-ember/25',
-  volt: 'from-volt/25',
-  aqua: 'from-aqua/25',
-  sun: 'from-sun/25',
+const accentBand: Record<AppItem['accent'], string> = {
+  ember: 'from-ember/25 via-ember/5',
+  volt: 'from-volt/25 via-volt/5',
+  aqua: 'from-aqua/25 via-aqua/5',
+  sun: 'from-sun/25 via-sun/5',
 }
 
 const statusStyle: Record<AppItem['status'], string> = {
@@ -22,74 +22,102 @@ const statusStyle: Record<AppItem['status'], string> = {
   soon: 'bg-volt/15 text-volt',
 }
 
+/** New-tab icon with a screen-reader-only label. */
+function ExternalHint() {
+  return (
+    <>
+      <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+        ↗
+      </span>
+      <span className="sr-only">(opens in a new tab)</span>
+    </>
+  )
+}
+
 export function AppCard({ app }: { app: AppItem }) {
+  const isExternal = Boolean(app.url)
+
   return (
     <article
-      className={`group relative overflow-hidden rounded-xl2 border border-line bg-ink-2 p-6 shadow-xl shadow-black/20 transition-all duration-300 hover:-translate-y-1 ${accentRing[app.accent]}`}
+      className={`group relative flex flex-col overflow-hidden rounded-xl2 border border-line bg-ink-2 shadow-xl shadow-black/20 transition-all duration-300 focus-within:-translate-y-1 hover:-translate-y-1 ${accentRing[app.accent]}`}
     >
+      {/* Preview area — screenshot slot with a branded fallback so the card
+          always looks intentional, image or not. */}
       <div
-        className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${accentGlow[app.accent]} to-transparent opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100`}
-      />
-      <div className="relative flex items-start justify-between">
+        className={`relative grid aspect-[16/9] place-items-center overflow-hidden border-b border-line bg-gradient-to-br ${accentBand[app.accent]} to-transparent`}
+      >
         {app.icon ? (
           <img
             src={app.icon}
-            alt={`${app.name} icon`}
-            className="h-14 w-14 rounded-2xl object-cover shadow-lg shadow-black/30"
+            alt=""
+            width={96}
+            height={96}
             loading="lazy"
+            decoding="async"
+            className="h-24 w-24 rounded-[1.25rem] object-cover shadow-lg shadow-black/40"
           />
         ) : (
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-ink-3 text-3xl">
+          <span aria-hidden className="text-6xl drop-shadow-lg">
             {app.emoji}
           </span>
         )}
         <span
-          className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyle[app.status]}`}
+          className={`absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-semibold ${statusStyle[app.status]}`}
         >
-          {app.kind === 'service' ? 'Available now' : statusLabels[app.status]}
+          {statusLabels[app.status]}
         </span>
       </div>
 
-      <h3 className="relative mt-5 font-display text-xl font-semibold text-cloud">
-        {app.name}
-      </h3>
-      <p className="relative mt-1 text-sm font-medium text-ember-soft">
-        {app.tagline}
-      </p>
-      <p className="relative mt-3 text-sm leading-relaxed text-mist">
-        {app.description}
-      </p>
-
-      <div className="relative mt-5 flex items-center justify-between">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-medium uppercase tracking-wide text-mist/70">
-            {app.category}
-          </span>
-          {app.platform && (
-            <span className="rounded-full border border-line px-2 py-0.5 text-[11px] font-medium text-mist">
-              {app.platform}
-            </span>
-          )}
-        </div>
-        {app.cta ? (
-          <Link
-            to={app.cta.to}
-            className="text-sm font-semibold text-cloud underline-offset-4 hover:underline"
-          >
-            {app.cta.label} →
-          </Link>
-        ) : (
-          app.url && (
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="font-display text-xl font-semibold text-cloud">
+          {isExternal ? (
             <a
               href={app.url}
               target="_blank"
               rel="noreferrer"
-              className="text-sm font-semibold text-cloud underline-offset-4 hover:underline"
+              onClick={() => trackAppVisit(app.slug, 'external')}
+              className="rounded outline-none after:absolute after:inset-0 after:content-[''] focus-visible:underline focus-visible:decoration-2 focus-visible:underline-offset-4"
             >
-              Visit →
+              {app.name}
             </a>
-          )
+          ) : (
+            app.name
+          )}
+        </h3>
+
+        <p className="mt-1 text-sm font-medium text-ember-soft">{app.tagline}</p>
+        <p className="mt-3 text-sm leading-relaxed text-mist">{app.description}</p>
+
+        {app.highlights && app.highlights.length > 0 && (
+          <ul className="mt-4 flex flex-wrap gap-1.5">
+            {app.highlights.map((h) => (
+              <li
+                key={h}
+                className="rounded-full bg-ink-3 px-2.5 py-1 text-xs font-medium text-cloud/90"
+              >
+                {h}
+              </li>
+            ))}
+          </ul>
         )}
+
+        <div className="mt-5 flex items-center justify-between gap-3 pt-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-medium uppercase tracking-wide text-mist">
+              {app.category}
+            </span>
+            {app.platform && (
+              <span className="rounded-full border border-line px-2 py-0.5 text-[11px] font-medium text-mist">
+                {app.platform}
+              </span>
+            )}
+          </div>
+          {isExternal && (
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-cloud">
+              Visit <ExternalHint />
+            </span>
+          )}
+        </div>
       </div>
     </article>
   )
