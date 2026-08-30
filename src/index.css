@@ -43,6 +43,13 @@
     background-color: var(--color-ember);
     color: var(--color-ink);
   }
+
+  /* Consistent, visible keyboard focus for every interactive control. */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-aqua);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
 }
 
 /* Subtle animated grid glow used on hero */
@@ -62,4 +69,28 @@
 
 .animate-fade-up {
   animation: fade-up 0.6s ease-out both;
+}
+
+/* Respect users who prefer reduced motion: no transforms/animation, and make
+   sure content that starts hidden for a fade is shown immediately. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-fade-up,
+  .animate-float-slow {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

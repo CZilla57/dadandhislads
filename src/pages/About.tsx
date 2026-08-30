@@ -1,3 +1,5 @@
+import { usePageMeta } from '../lib/usePageMeta'
+
 const values = [
   {
     emoji: '🔍',
@@ -17,10 +19,17 @@ const values = [
 ]
 
 export function About() {
+  usePageMeta({
+    title: 'Our story — Dad & His Lads',
+    description:
+      'A dad, his lads, and a workshop full of ideas. How Dad & His Lads builds apps with heart — business tools, ADHD helpers, health trackers, and family games.',
+    path: '/about',
+  })
+
   return (
     <div className="mx-auto max-w-4xl px-5 py-16 sm:py-24">
       <span className="inline-flex items-center gap-2 rounded-full border border-line bg-ink-2 px-4 py-1.5 text-sm text-mist">
-        👋 Our story
+        <span aria-hidden>👋</span> Our story
       </span>
 
       <h1 className="mt-6 font-display text-4xl font-bold leading-tight text-cloud sm:text-5xl">
@@ -56,13 +65,16 @@ export function About() {
         </p>
       </div>
 
+      <h2 className="sr-only">What we value</h2>
       <div className="mt-14 grid gap-6 sm:grid-cols-3">
         {values.map((v) => (
           <div
             key={v.title}
             className="rounded-xl2 border border-line bg-ink-2 p-6"
           >
-            <span className="text-3xl">{v.emoji}</span>
+            <span aria-hidden className="text-3xl">
+              {v.emoji}
+            </span>
             <h3 className="mt-3 font-display text-lg font-semibold text-cloud">
               {v.title}
             </h3>
