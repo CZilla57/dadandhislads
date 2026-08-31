@@ -7,6 +7,7 @@ import {
 } from '../lib/contact'
 import { trackContactSubmit } from '../lib/analytics'
 import { usePageMeta } from '../lib/usePageMeta'
+import { routeMeta } from '../lib/routeMeta'
 
 type Status = 'idle' | 'submitting' | 'success' | 'fallback' | 'error'
 type FieldErrors = { name?: string; email?: string; message?: string }
@@ -24,12 +25,7 @@ function validate(name: string, email: string, message: string): FieldErrors {
 }
 
 export function Contact() {
-  usePageMeta({
-    title: 'Say hello — Dad & His Lads',
-    description:
-      'Got an idea, a question, or a website to build? Get in touch with Dad & His Lads — we read every message.',
-    path: '/contact',
-  })
+  usePageMeta(routeMeta.contact)
 
   const ids = useId()
   const nameId = `${ids}-name`

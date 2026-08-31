@@ -3,6 +3,8 @@ import { AppCard } from '../components/AppCard'
 import { ServiceSection } from '../components/ServiceSection'
 import { apps, services } from '../data/apps'
 import { usePageMeta } from '../lib/usePageMeta'
+import { routeMeta } from '../lib/routeMeta'
+import { appsPageJsonLd } from '../lib/structuredData'
 
 function Hero() {
   return (
@@ -86,12 +88,7 @@ const pillars = [
 ]
 
 export function Home() {
-  usePageMeta({
-    title: 'Dad & His Lads — Apps built by a dad, alongside his lads',
-    description:
-      'A tiny app studio with a big family. We build business tools, ADHD & focus helpers, health trackers, and family games — plus affordable website building.',
-    path: '/',
-  })
+  usePageMeta({ ...routeMeta.home, jsonLd: appsPageJsonLd })
 
   const featured = apps.slice(0, 3)
 

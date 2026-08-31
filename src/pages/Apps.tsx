@@ -4,16 +4,13 @@ import { ServiceSection } from '../components/ServiceSection'
 import { apps, categories, services } from '../data/apps'
 import type { AppCategory } from '../data/apps'
 import { usePageMeta } from '../lib/usePageMeta'
+import { routeMeta } from '../lib/routeMeta'
+import { appsPageJsonLd } from '../lib/structuredData'
 
 type Filter = 'All' | AppCategory
 
 export function Apps() {
-  usePageMeta({
-    title: 'Apps & services — Dad & His Lads',
-    description:
-      'Everything Dad & His Lads builds and offers — business tools, ADHD & focus helpers, and family apps, plus affordable website building.',
-    path: '/apps',
-  })
+  usePageMeta({ ...routeMeta.apps, jsonLd: appsPageJsonLd })
 
   const [filter, setFilter] = useState<Filter>('All')
 
