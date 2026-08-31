@@ -65,8 +65,23 @@ contact submissions, quote clicks). It no-ops safely when no provider is present
 and collects no personal information. To enable, expose `window.plausible` or
 `window.dataLayer` on the page.
 
-## SEO note
+## SEO
 
-This is a client-rendered SPA (no SSR/prerendering). Titles, descriptions,
-canonical URLs, and Open Graph / Twitter tags are set per route at runtime via
-`src/lib/usePageMeta.ts`, with static defaults in `index.html`.
+The app is a client-rendered SPA, but each route is **prerendered to its own
+static HTML file at build time** by the `seo-prerender` plugin in
+[`vite.config.ts`](vite.config.ts) — `dist/index.html`, `dist/apps/index.html`,
+etc. Every file ships that route's real `<title>`, description, canonical, and
+Open Graph / Twitter tags, so non-JS crawlers and social scrapers (Facebook,
+LinkedIn, Slack, Bing) get correct per-route metadata. The build also emits a
+`dist/404.html` that Cloudflare Pages serves with a real 404 status for unknown
+URLs (no SPA catch-all in [`public/_redirects`](public/_redirects), so there are
+no soft-404s).
+
+Per-route metadata lives in one place — [`src/lib/routeMeta.ts`](src/lib/routeMeta.ts)
+— shared by the prerenderer and by `src/lib/usePageMeta.ts`, which keeps the
+tags in sync during in-app client navigation.
+
+**Structured data (JSON-LD):** site-wide `Organization` + `WebSite` schema is
+baked into every page from `routeMeta.ts`; per-app `SoftwareApplication` and the
+`Service` schema are injected on the Home and Apps routes from
+[`src/lib/structuredData.ts`](src/lib/structuredData.ts).

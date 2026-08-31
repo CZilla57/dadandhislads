@@ -1,1 +1,4 @@
-/*    /index.html   200
+# Every real route is prerendered to its own static HTML file at build time
+# (see the seo-prerender plugin in vite.config.ts), so there is no SPA
+# catch-all here. Cloudflare Pages serves those files directly and falls back
+# to dist/404.html — with a real 404 status — for anything unmatched.

@@ -1,4 +1,5 @@
 import { usePageMeta } from '../lib/usePageMeta'
+import { routeMeta } from '../lib/routeMeta'
 
 const values = [
   {
@@ -19,12 +20,7 @@ const values = [
 ]
 
 export function About() {
-  usePageMeta({
-    title: 'Our story — Dad & His Lads',
-    description:
-      'A dad, his lads, and a workshop full of ideas. How Dad & His Lads builds apps with heart — business tools, ADHD helpers, health trackers, and family games.',
-    path: '/about',
-  })
+  usePageMeta(routeMeta.about)
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-16 sm:py-24">

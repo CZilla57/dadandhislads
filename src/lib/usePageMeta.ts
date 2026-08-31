@@ -1,27 +1,25 @@
 import { useEffect } from 'react'
+import {
+  DEFAULT_OG_IMAGE,
+  OG_IMAGE_ALT,
+  OG_LOCALE,
+  SITE_NAME,
+  SITE_URL,
+  type RouteMeta,
+} from './routeMeta'
 
 /**
  * Client-side document metadata for each route.
  *
- * This is a single-page app rendered in the browser — there is no SSR or
- * prerendering — so titles and meta tags are set on navigation via this hook.
- * Crawlers that execute JavaScript (Google, etc.) will see the updated tags;
- * the static tags in index.html are the no-JS fallback.
+ * Routes are prerendered to static HTML at build time (see the prerender plugin
+ * in `vite.config.ts`), so crawlers and social scrapers already see the correct
+ * per-route tags without running JavaScript. This hook keeps those tags in sync
+ * during in-app client navigation, where there is no full page load.
  */
 
-const SITE_NAME = 'Dad & His Lads'
-const SITE_URL = 'https://dadandhislads.com'
-const DEFAULT_OG_IMAGE = `${SITE_URL}/og.png`
-
-export interface PageMeta {
-  /** Full <title>. If omitted, falls back to the site name alone. */
-  title: string
-  description: string
-  /** Path (e.g. "/apps") used to build the canonical + og:url. */
-  path: string
-  /** Discourage indexing (used for the 404 route). */
-  noindex?: boolean
-  image?: string
+export interface PageMeta extends RouteMeta {
+  /** Optional JSON-LD structured data for this route (single object or list). */
+  jsonLd?: object | object[]
 }
 
 function setMeta(selector: string, attr: 'name' | 'property', key: string, content: string) {
@@ -44,7 +42,24 @@ function setLink(rel: string, href: string) {
   el.setAttribute('href', href)
 }
 
-export function usePageMeta({ title, description, path, noindex, image }: PageMeta) {
+/** Replace any route-managed JSON-LD blocks with the current route's data. */
+function setJsonLd(jsonLd?: object | object[]) {
+  document.head
+    .querySelectorAll('script[type="application/ld+json"][data-route-jsonld]')
+    .forEach((el) => el.remove())
+
+  if (!jsonLd) return
+  const blocks = Array.isArray(jsonLd) ? jsonLd : [jsonLd]
+  for (const block of blocks) {
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.setAttribute('data-route-jsonld', '')
+    script.textContent = JSON.stringify(block)
+    document.head.appendChild(script)
+  }
+}
+
+export function usePageMeta({ title, description, path, noindex, image, jsonLd }: PageMeta) {
   useEffect(() => {
     const url = `${SITE_URL}${path}`
     const ogImage = image ?? DEFAULT_OG_IMAGE
@@ -62,11 +77,16 @@ export function usePageMeta({ title, description, path, noindex, image }: PageMe
     setMeta('meta[property="og:type"]', 'property', 'og:type', 'website')
     setMeta('meta[property="og:site_name"]', 'property', 'og:site_name', SITE_NAME)
     setMeta('meta[property="og:image"]', 'property', 'og:image', ogImage)
+    setMeta('meta[property="og:image:alt"]', 'property', 'og:image:alt', OG_IMAGE_ALT)
+    setMeta('meta[property="og:locale"]', 'property', 'og:locale', OG_LOCALE)
 
     // Twitter
     setMeta('meta[name="twitter:card"]', 'name', 'twitter:card', 'summary_large_image')
     setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title)
     setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description)
     setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage)
-  }, [title, description, path, noindex, image])
+    setMeta('meta[name="twitter:image:alt"]', 'name', 'twitter:image:alt', OG_IMAGE_ALT)
+
+    setJsonLd(jsonLd)
+  }, [title, description, path, noindex, image, jsonLd])
 }

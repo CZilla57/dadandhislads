@@ -1,13 +1,9 @@
 import { Link } from 'react-router-dom'
 import { usePageMeta } from '../lib/usePageMeta'
+import { routeMeta } from '../lib/routeMeta'
 
 export function NotFound() {
-  usePageMeta({
-    title: 'Page not found — Dad & His Lads',
-    description: 'That page wandered off. Head back home to explore the apps.',
-    path: '/404',
-    noindex: true,
-  })
+  usePageMeta(routeMeta.notFound)
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center px-5 py-28 text-center">
