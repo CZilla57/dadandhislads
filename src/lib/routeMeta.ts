@@ -83,7 +83,7 @@ export function siteStructuredData(): object[] {
       '@type': 'Organization',
       name: SITE_NAME,
       url: `${SITE_URL}/`,
-      logo: `${SITE_URL}/favicon.svg`,
+      logo: `${SITE_URL}/apple-touch-icon.png`,
       image: DEFAULT_OG_IMAGE,
       description:
         'A tiny app studio with a big family, building business tools, ADHD & focus helpers, health trackers, and family games.',
