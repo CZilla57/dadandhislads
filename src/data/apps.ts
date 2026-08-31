@@ -1,3 +1,4 @@
+import tradeReadyIcon from '../assets/apps/tradeready.avif'
 import focusquestIcon from '../assets/apps/focusquest.avif'
 import howdYouDoThatIcon from '../assets/apps/howd-you-do-that.avif'
 import websiteBuildingImage from '../assets/apps/website-building.avif'
@@ -68,6 +69,7 @@ export const apps: AppItem[] = [
     category: 'Business',
     status: 'live',
     emoji: '🔧',
+    icon: tradeReadyIcon,
     accent: 'ember',
     url: 'https://gettradereadyapp.com',
     platform: 'iOS',
