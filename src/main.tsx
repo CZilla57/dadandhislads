@@ -11,6 +11,7 @@ import { Home } from './pages/Home'
 import { Apps } from './pages/Apps'
 import { About } from './pages/About'
 import { Contact } from './pages/Contact'
+import { WifeLoveNotesPrivacy } from './pages/WifeLoveNotesPrivacy'
 import { NotFound } from './pages/NotFound'
 
 function Root() {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: '/apps', element: <Apps /> },
       { path: '/about', element: <About /> },
       { path: '/contact', element: <Contact /> },
+      { path: '/wifelovenotes/privacy', element: <WifeLoveNotesPrivacy /> },
       { path: '*', element: <NotFound /> },
     ],
   },

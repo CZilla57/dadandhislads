@@ -56,6 +56,12 @@ export const routeMeta = {
       'Got an idea, a question, or a website to build? Get in touch with Dad & His Lads — we read every message.',
     path: '/contact',
   },
+  wifeLoveNotesPrivacy: {
+    title: 'Privacy Policy — WifeLoveNotes',
+    description:
+      "WifeLoveNotes' privacy policy: it collects no data, makes no network calls, and stores everything only on your device.",
+    path: '/wifelovenotes/privacy',
+  },
   notFound: {
     title: 'Page not found — Dad & His Lads',
     description: 'That page wandered off. Head back home to explore the apps.',
@@ -70,6 +76,7 @@ export const prerenderRoutes: RouteMeta[] = [
   routeMeta.apps,
   routeMeta.about,
   routeMeta.contact,
+  routeMeta.wifeLoveNotesPrivacy,
 ]
 
 /**
