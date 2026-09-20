@@ -62,6 +62,12 @@ export const routeMeta = {
       "WifeLoveNotes' privacy policy: it collects no data, makes no network calls, and stores everything only on your device.",
     path: '/wifelovenotes/privacy',
   },
+  wifeLoveNotesSupport: {
+    title: 'Support — WifeLoveNotes',
+    description:
+      'Need help with WifeLoveNotes? Find answers to common questions or get in touch directly.',
+    path: '/wifelovenotes/support',
+  },
   notFound: {
     title: 'Page not found — Dad & His Lads',
     description: 'That page wandered off. Head back home to explore the apps.',
@@ -77,6 +83,7 @@ export const prerenderRoutes: RouteMeta[] = [
   routeMeta.about,
   routeMeta.contact,
   routeMeta.wifeLoveNotesPrivacy,
+  routeMeta.wifeLoveNotesSupport,
 ]
 
 /**
