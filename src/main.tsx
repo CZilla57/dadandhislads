@@ -13,6 +13,8 @@ import { About } from './pages/About'
 import { Contact } from './pages/Contact'
 import { WifeLoveNotesPrivacy } from './pages/WifeLoveNotesPrivacy'
 import { WifeLoveNotesSupport } from './pages/WifeLoveNotesSupport'
+import { SlipstreamPrivacy } from './pages/SlipstreamPrivacy'
+import { SlipstreamSupport } from './pages/SlipstreamSupport'
 import { NotFound } from './pages/NotFound'
 
 function Root() {
@@ -34,6 +36,8 @@ const router = createBrowserRouter([
       { path: '/contact', element: <Contact /> },
       { path: '/wifelovenotes/privacy', element: <WifeLoveNotesPrivacy /> },
       { path: '/wifelovenotes/support', element: <WifeLoveNotesSupport /> },
+      { path: '/slipstreamgp/privacy', element: <SlipstreamPrivacy /> },
+      { path: '/slipstreamgp/support', element: <SlipstreamSupport /> },
       { path: '*', element: <NotFound /> },
     ],
   },

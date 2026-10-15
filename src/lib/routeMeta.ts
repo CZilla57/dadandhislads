@@ -68,6 +68,18 @@ export const routeMeta = {
       'Need help with WifeLoveNotes? Find answers to common questions or get in touch directly.',
     path: '/wifelovenotes/support',
   },
+  slipstreamPrivacy: {
+    title: 'Privacy Policy — Slipstream GP',
+    description:
+      "Slipstream GP's privacy policy: it collects no data, has no servers of its own, and keeps your progress only on your device.",
+    path: '/slipstreamgp/privacy',
+  },
+  slipstreamSupport: {
+    title: 'Support — Slipstream GP',
+    description:
+      'Need help with Slipstream GP? Find answers about controls, assists, challenges and Game Center, or get in touch directly.',
+    path: '/slipstreamgp/support',
+  },
   notFound: {
     title: 'Page not found — Dad & His Lads',
     description: 'That page wandered off. Head back home to explore the apps.',
@@ -84,6 +96,8 @@ export const prerenderRoutes: RouteMeta[] = [
   routeMeta.contact,
   routeMeta.wifeLoveNotesPrivacy,
   routeMeta.wifeLoveNotesSupport,
+  routeMeta.slipstreamPrivacy,
+  routeMeta.slipstreamSupport,
 ]
 
 /**
